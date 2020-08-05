@@ -10,8 +10,8 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 # It will enforce many of the guidelines outlined in the community
 gem 'rubocop', '~>0.81.0'
 # Flexible authentication solution for Rails with Warden
-gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'bootstrap', '~> 4.5'
+gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'jquery-rails'
 gem 'simple_form', '~> 5.0', '>= 5.0.2'
 # Use SCSS for stylesheets
