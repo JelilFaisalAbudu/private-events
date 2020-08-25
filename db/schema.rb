@@ -10,18 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_05_132826) do
+ActiveRecord::Schema.define(version: 2020_08_25_083609) do
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+  create_table "attendances", force: :cascade do |t|
+    t.integer "attendee_id", null: false
+    t.integer "organized_event_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["attendee_id"], name: "index_attendances_on_attendee_id"
+    t.index ["organized_event_id"], name: "index_attendances_on_organized_event_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.string "location"
+    t.datetime "date"
+    t.text "details"
+    t.integer "organizer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organizer_id"], name: "index_events_on_organizer_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  add_foreign_key "attendances", "events", column: "organized_event_id"
+  add_foreign_key "attendances", "users", column: "attendee_id"
+  add_foreign_key "events", "users", column: "organizer_id"
 end
