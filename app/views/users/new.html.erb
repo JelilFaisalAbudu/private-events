@@ -1,17 +1,8 @@
 <% provide(:title, 'Sign up') %>
 
-<div class="row">
-	<div class="col-md-3 col-md-offset-4">
-		<%= form_with(model: @user, local: true) do | f | %>
-			<h1>Sign up</h1>
-			<%#  render 'shared/error_messages' %>
-			<%= f.label :username %>
-			<%= f.text_field :username, class: 'form-control' %>
-
-			<%= f.label :email %>
-			<%= f.email_field :email, class: 'form-control' %>
-
-			<%= f.submit "Create account", class: 'btn btn-primary' %>
-		<% end %>
-	</div>
-</div>
+<h1 class="text-center">Sign up</h1>
+<%= render 'users_form' %>
+<p>
+	Already have an account? 
+		<%= link_to 'Sign In', login_path, class: '' %>
+</p>
