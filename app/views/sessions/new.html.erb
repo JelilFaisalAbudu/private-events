@@ -1,0 +1,15 @@
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+
+		<%= form_with(scope: :session, url: login_path, local: true, class: 'form-signin') do | f | %>
+			<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+			<%= f.label :email,  class: 'sr-only', for: 'inputEmail' %>
+			<%= f.email_field :email, class: 'form_control', id: 'inputEmail', 	 class: 'form-control', placeholder: 'Email address' %>
+
+			<%= f.submit 'Sign in', class: "btn btn-lg btn-primary btn-block" %>
+
+		<% end %>
+
+
+	</div>
+</div>
