@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
   def new
+    return unless logged_in?
+    flash[:notice] = 'You are already logged in'
+    redirect_to root_path
   end
 
   def create
@@ -7,7 +10,7 @@ class SessionsController < ApplicationController
     if user
       # log the user in and direct to show page
       log_in(user)
-      redirect_to user
+      redirect_to root_path
     else
       flash.now[:danger] = 'Invalid email/password. Try again' # Log in not
       render 'new' # Try once more
@@ -15,6 +18,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    
+    session[:user_id] = nil
+    flash[:notice] = 'You have logged out.'
+    redirect_to root_path
   end
 end
