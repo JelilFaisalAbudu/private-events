@@ -4,8 +4,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = current_user.id
+    @my_organized_events = my_organized_events
+    @my_attended_events = my_attended_events
+
   end
+
+  def edit
+    @user = current_user.id
+  end
+  
 
   def create
     @user = User.new(user_params)
@@ -14,7 +22,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       flash.now[:alert] = "Something went wrong. Check and resubmit your registration form again"
-      render 'new'
+      render :new
     end
   end
 
@@ -25,7 +33,7 @@ class UsersController < ApplicationController
       redirect_to events_url
     else
       flash.now[:error] = 'The operation was unsuccessful'
-      redirect_to users_path(@user)
+      redirect_to root_path
     end
   end
   
@@ -33,12 +41,12 @@ class UsersController < ApplicationController
 
   def update
     @user= User.find(params[:id])
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       flash[:success] = "Profile successfully updated"
       redirect_to root_path
     else
       flash.now[:error] = "Something went wrong. Could not update profile"
-      render 'edit'
+      render :edit
     end
   end
   
