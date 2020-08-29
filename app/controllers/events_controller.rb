@@ -27,10 +27,24 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
 
+    @event_attendees = @event.event_attendees
+
   end
 
   def edit
   end
+
+  def update
+    @event = Event.find(params[:id])
+      if @event.update_attributes(params[:event])
+        flash[:success] = "Event was successfully updated"
+        redirect_to @event
+      else
+        flash[:error] = "Something went wrong"
+        render :edit
+      end
+  end
+  
 
   def attend_event
     redirect_to login_path if session[:user_id].nil?
@@ -44,7 +58,8 @@ class EventsController < ApplicationController
       flash.now[:alert] = 'Your registration for the event was unsuccessful. Plese try again'
       redirect_to root_path
     end
-  end  
+  end
+
   private
 
   def event_params
