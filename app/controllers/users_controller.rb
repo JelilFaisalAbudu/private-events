@@ -4,14 +4,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user.id
-    @my_organized_events = my_organized_events
-    @my_attended_events = my_attended_events
-
+    @user = User.find(current_user.id)
   end
 
   def edit
-    @user = current_user.id
+    @user = User.find(current_user.id)
   end
   
 
@@ -26,21 +23,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def def destroy
-    @user = User.find(params[:id])
-    if @user.destroy
-      flash[:success] = 'You have  successfully deleted your account.'
-      redirect_to events_url
-    else
-      flash.now[:error] = 'The operation was unsuccessful'
-      redirect_to root_path
-    end
-  end
+ 
   
   
 
   def update
-    @user= User.find(params[:id])
+    @user= User.find(current_user.id)
     if @user.update(user_params)
       flash[:success] = "Profile successfully updated"
       redirect_to root_path
